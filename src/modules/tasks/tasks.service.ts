@@ -28,11 +28,15 @@ export class TasksService  {
     }
 
     async delete(id, userId) {
+
         return await this.taskRepository.destroy({where: {id, userId}});
     }
 
     async update(id, data, userId){
-        return await this.taskRepository.update({data}, {where: {id, userId}, returning:true});
+        const [numberOfAffectedRows, [updatedTask]] = await this.taskRepository.update({ ...data }, { where: { id, userId }, returning: true });
+
+        return { numberOfAffectedRows, updatedTask };
+
     }
 
 }

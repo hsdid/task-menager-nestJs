@@ -1,7 +1,8 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType,HasMany } from 'sequelize-typescript';
+import { Task } from '../tasks/task.entity';
 
 @Table
-export class User extends Model<User> {
+export class User extends Model {
     @Column({
         type: DataType.STRING,
         allowNull: false,
@@ -27,4 +28,7 @@ export class User extends Model<User> {
         allowNull: false,
     })
     gender: string;
+
+    @HasMany(() => Task)
+    tasks?: Task[];
 }
