@@ -9,13 +9,13 @@ export class Note extends Model{
     })
     note: string;
 
-    @Column({
-        allowNull: false,
-        type: DataType.INTEGER,
-    })
 
     @ForeignKey(() => Task)
-    task_id!: number;
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    task_id: number;
 
     @BelongsTo(() => Task)
     task!: Task;

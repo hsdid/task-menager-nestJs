@@ -4,7 +4,4 @@ export class NoteDto {
     @IsNotEmpty()
     @MinLength(3)
     readonly note:string;
-
-    @IsNotEmpty()
-    readonly body: string;
 }
