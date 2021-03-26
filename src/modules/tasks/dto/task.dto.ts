@@ -6,6 +6,4 @@ export class TaskDto {
     readonly title:string;
     @IsNotEmpty()
     readonly isComplete:boolean;
-    // @IsNotEmpty()
-    // readonly userId:number;
 }

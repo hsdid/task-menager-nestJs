@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { Task, Task as TaskEntity } from './task.entity'
+import { Task as TaskEntity } from './task.entity'
 import { AuthGuard } from '@nestjs/passport';
 import { TaskDto } from './dto/task.dto';
 @Controller('tasks')
@@ -17,7 +17,6 @@ export class TasksController {
         const task = await this.taskService.findOne(id);
 
         if (!task){
-            
             throw new NotFoundException('This Task dosent exist');
         }
         return task;
@@ -32,10 +31,9 @@ export class TasksController {
     @UseGuards(AuthGuard('jwt'))
     @Put(':id')
     async update(@Param('id') id: number, @Body() task: TaskDto, @Request() req): Promise<TaskEntity> {
-        
-        const { numberOfAffectedRows, updatedTask} = await this.taskService.update(id, task, req.user.id);
+        const { numberOfAffectedRows, updatedTask } = await this.taskService.update(id, task, req.user.id);
 
-        if (!updatedTask){
+        if ( numberOfAffectedRows === 0 ) {
             throw new NotFoundException('This Task dosent exist');
         }
         return updatedTask;
@@ -43,7 +41,7 @@ export class TasksController {
 
     @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
-    async remove(@Param('id') id: number, @Request() req){
+    async remove(@Param('id') id: number, @Request() req): Promise<String> {
         
         const deleted = await this.taskService.delete(id, req.user.id);
 

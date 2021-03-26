@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Model } from 'sequelize';
+import { Note } from '../notes/note.entity';
 import { TASK_REPOSITORY } from 'src/core/constants';
 import { User } from '../users/user.entity';
 import { TaskDto } from './dto/task.dto';
@@ -23,20 +23,17 @@ export class TasksService  {
     async findOne(id): Promise<Task> {
         return await this.taskRepository.findOne({
             where: {id},
-            include: [{ model: User, attributes: { exclude: ['password'] }}],
+            include: [{ model: Note }],
         });
     }
 
     async delete(id, userId) {
-
         return await this.taskRepository.destroy({where: {id, userId}});
     }
 
     async update(id, data, userId){
         const [numberOfAffectedRows, [updatedTask]] = await this.taskRepository.update({ ...data }, { where: { id, userId }, returning: true });
-
         return { numberOfAffectedRows, updatedTask };
-
     }
 
 }

@@ -26,5 +26,5 @@ export class Task extends Model {
     user: User;
 
     @HasMany(() => Note)
-    notes?: Note
+    notes?: Note[]
 } 
