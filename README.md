@@ -5,6 +5,10 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
+#
+Application that will help you organize your tasks throughout the day 
+Create with NestJs and Sequalizer
+Add task and notes to task
  
 ## Installation
 
